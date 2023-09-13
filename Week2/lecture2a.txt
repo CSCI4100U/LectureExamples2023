@@ -1,0 +1,131 @@
+void main() {
+  for (int i = 0; i < 5; i++) {
+    print("hello ${i+2*3} fill in your sentence with any $i variable");
+  }
+  
+  double mynumber = 3.1415926535897965;
+  print(mynumber+1);
+  
+  dynamic newvariable = 'hello';
+  print(newvariable);
+  newvariable = 1.5;
+  print(newvariable);
+  
+  bool flag = true;
+  while(flag){
+    print(newvariable);
+    flag = false;
+  }
+  
+  List<String> names = ["Michael", "Alex", "Alex2", "Aria", "Zain"];
+//   for (String name in names){
+//     print(name);
+//   }
+  
+//  print(names.toString());
+  
+  names.forEach(print);
+  //names.forEach((String name) => print(name[0]));
+//   names.forEach((String name) {
+//     print("Here is a name:");
+//     print(name);
+//   }
+               
+            //   );
+  
+  List<String> names2 = names.map((name) => '*$name*').toList();
+  print(names2);
+  
+  List<int> numbers = [1,2,3,4,5];
+  int product = numbers.reduce( (a,b) => a*b);
+  print(product);
+  
+  Map<String,dynamic> wordCount = { //type is required!
+    'the': 18,
+    'dog': 5,
+    'michael': 'doesn\'t show up'
+    
+  };
+  print(wordCount['the']);
+  
+  List<String> a_names = names.where( (n) {
+    
+    if (n[0] == 'A'){
+      return true;
+      
+    }
+    return false;
+  }                                    
+                                    ).toList();
+  
+  print(a_names);
+  
+  
+  /*
+   * Task: Analyze Music Track Data
+Create a Dart program that simulates a list of music tracks,
+each with attributes such as title, artist, duration, and
+rating. The program should perform various data analysis 
+tasks on the music tracks, demonstrating the use of different 
+list methods and a mix of inline and non-inline functions.
+   * 
+   * */
+  
+  print("***************************");
+  print("***************************");
+  print("***************************");
+  
+  List<Map<String,dynamic>> musicTracks = [
+    {'title': 'Blue', 'artist': 'Eiffel 65', 'duration': 231, 'rating': 4.2},
+    {'title': 'Levitating', 'artist': 'Dua Lipa', 'duration': 210, 'rating': 4.8},
+  {'title': 'Vroom Vroom', 'artist': 'Charli XCX', 'duration': 193, 'rating': 4.7},
+  {'title': 'Kings & Queens', 'artist': 'Ava Max', 'duration': 234, 'rating': 4.5},
+  {'title': 'Sweet but Psycho', 'artist': 'Ava Max', 'duration': 206, 'rating': 4.6},
+  {'title': 'Montero (Call Me By Your Name)', 'artist': 'Lil Nas X', 'duration': 223, 'rating': 4.6},
+  {'title': 'New Rules', 'artist': 'Dua Lipa', 'duration': 200, 'rating': 4.4},
+  {'title': 'Watermelon Sugar', 'artist': 'Harry Styles', 'duration': 174, 'rating': 4.6},
+  {'title': 'Good 4 U', 'artist': 'Olivia Rodrigo', 'duration': 215, 'rating': 4.5},
+  {'title': 'Levitating (Remix)', 'artist': 'Dua Lipa & DaBaby', 'duration': 203, 'rating': 4.7},
+  {'title': 'Blinding Lights', 'artist': 'The Weeknd', 'duration': 200, 'rating': 4.8},
+  ];
+  
+  double calculateAverageDuration(List<Map<String,dynamic>> songs){
+    if (songs.isEmpty) return 0.0;
+    
+    var totalDuration = songs.map((s)
+                                  => s['duration']).reduce( (a,b) => a+b);
+    
+    return totalDuration/songs.length;
+    
+  }
+  
+  print(calculateAverageDuration(musicTracks));
+  
+  Map<String,dynamic> findHighestRatedTrack(List<Map<String,dynamic>> songs){
+    if (songs.isEmpty) {
+      return {};
+    }
+    
+    return songs.reduce(
+        
+      (a,b) => a['rating'] > b['rating'] ? a : b
+      
+    );
+    
+  }
+  
+  print(findHighestRatedTrack(musicTracks));
+  
+  void sortTracksByDuration(List<Map<String,dynamic>> songs){
+    songs.sort(
+    
+      (a,b) => a['duration'].compareTo(b['duration'])
+      
+    );    
+  }
+  
+  sortTracksByDuration(musicTracks);
+  
+  musicTracks.forEach((track) => print(track['title']));
+  
+}
