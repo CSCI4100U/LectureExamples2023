@@ -1,0 +1,110 @@
+class StardewValleyCharacter {
+  // Instance variables
+  String? name;
+  int? age;
+  int? _id; // Private variable
+
+  // Static variable to keep track of the population
+  static int _currentPopulation = 0;
+
+  StardewValleyCharacter(this.name, this.age) {
+    // Initialize the private id variable based on the static population variable
+    _id = ++_currentPopulation;
+  }
+
+  // Getter for id (to access it from outside the class)
+  int get id => _id!;
+
+  // Method to introduce the character
+  void introduce() {
+    print('Hello, I am $name, and I am $age years old.');
+    print('My unique ID is $_id.');
+  }
+  
+  //optional
+  @override
+  String toString(){
+    return "Name = $name, Age = $age, id = $_id";
+  }
+}
+
+class Crop {
+  // Instance variables
+  String name;
+  int growthTime; // in seconds
+  double value;   // in money
+  int experiencePoints;
+
+  // Constructor with optional parameters and default values
+  Crop({
+    this.name = 'Unknown',
+    this.growthTime = 0,
+    this.value = 0.0,
+    this.experiencePoints = 0,
+  }) {
+    print('A crop named $name is being created.');
+  }
+
+  // toString method
+  @override
+  String toString() {
+    return 'Crop: $name\nGrowth Time: ${growthTime}s\nValue: \$$value\nExperience Points Reward: $experiencePoints';
+  }
+}
+
+class Strawberry extends Crop {
+  Strawberry({
+    String name = 'Strawberry',
+    int growthTime = 60 * 4, // Default growth time: 4 minutes
+    double value = 3.0,     // Default value: $3.0
+    int experiencePoints = 15, // Default XP reward: 15
+  }) : super(
+    //left side is properties, right side is the 
+    //params from above
+          name: name,
+          growthTime: growthTime,
+          value: value,
+          experiencePoints: experiencePoints,
+        );
+
+  // Additional methods or properties specific to strawberries can be added here.
+}
+
+void main() {
+  
+  // Create character instances
+  var character1 = StardewValleyCharacter('Alex', 28);
+  var character2 = StardewValleyCharacter('Emily', 25);
+  var character3 = StardewValleyCharacter('Sam', 20);
+  var character4 = StardewValleyCharacter('Abigail', 22);
+
+  // Introduce the characters
+  character1.introduce();
+  character2.introduce();
+  character3.introduce();
+  character4.introduce();
+  
+  print(character1);
+  
+  // Create crop instances with parameters in any order
+  var crop1 = Crop(name: 'Carrot', value: 2.5, growthTime: 60 * 3);
+  var crop2 = Crop(growthTime: 60 * 2, name: 'Tomato');
+  var crop3 = Crop(experiencePoints: 5, name: 'Potato');
+
+  // Print the crop information using the toString method
+  print(crop1.toString());
+  print(crop2.toString());
+  print(crop3.toString());
+  
+  
+//   String? nullableString = "Hello, Dart!"; // Nullable string
+//   String nonNullableString = "Hello, Dart!"; // Non-nullable string
+
+//   print(nullableString?.toUpperCase()); // Using null-aware operator
+//   print(nonNullableString.toUpperCase()); // No issues here
+
+//   int? x; // Nullable integer
+//   // int y = x; // This would result in a compilation error because x can be null.
+
+  
+}
