@@ -258,3 +258,10 @@ void main() async {
   player.swim();
   
 }
+
+
+//Example of Then
+var farmWorkResult = await player.growCrop(strawberry)
+    .then((result) {
+      print(result);
+    });
