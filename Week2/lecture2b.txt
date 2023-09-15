@@ -55,7 +55,7 @@ class Crop {
 class Strawberry extends Crop {
   Strawberry({
     String name = 'Strawberry',
-    int growthTime = 60 * 4, // Default growth time: 4 minutes
+    int growthTime = 3, // Default growth time: 3 seconds
     double value = 3.0,     // Default value: $3.0
     int experiencePoints = 15, // Default XP reward: 15
   }) : super(
@@ -70,32 +70,162 @@ class Strawberry extends Crop {
   // Additional methods or properties specific to strawberries can be added here.
 }
 
-void main() {
-  
-  // Create character instances
-  var character1 = StardewValleyCharacter('Alex', 28);
-  var character2 = StardewValleyCharacter('Emily', 25);
-  var character3 = StardewValleyCharacter('Sam', 20);
-  var character4 = StardewValleyCharacter('Abigail', 22);
+class Pumpkin extends Crop {
+  Pumpkin({
+    String name = 'Pumpkin',
+    int growthTime = 3, // Default growth time: 1 second
+    double value = 5.0,      // Default value: $5.0
+    int experiencePoints = 20, // Default XP reward: 20
+  }) : super(
+          name: name,
+          growthTime: growthTime,
+          value: value,
+          experiencePoints: experiencePoints,
+        );
 
-  // Introduce the characters
-  character1.introduce();
-  character2.introduce();
-  character3.introduce();
-  character4.introduce();
-  
-  print(character1);
-  
-  // Create crop instances with parameters in any order
-  var crop1 = Crop(name: 'Carrot', value: 2.5, growthTime: 60 * 3);
-  var crop2 = Crop(growthTime: 60 * 2, name: 'Tomato');
-  var crop3 = Crop(experiencePoints: 5, name: 'Potato');
+  // Additional methods or properties specific to pumpkins can be added here.
+}
 
-  // Print the crop information using the toString method
-  print(crop1.toString());
-  print(crop2.toString());
-  print(crop3.toString());
+abstract class Swimmer{
+  void swim();
+}
+
+class Fish {
+  // Instance variables
+  String name;
+  double value;   // in money
+  int experiencePoints;
+
+  // Constructor
+  Fish(this.name, this.value, this.experiencePoints) {
+    print('A fish named $name is being created.');
+  }
+
+  // toString method
+  @override
+  String toString() {
+    return 'Fish: $name\nValue: \$$value\nExperience Points Reward: $experiencePoints';
+  }
+}
+
+class Sturgeon extends Fish implements Swimmer {
+  Sturgeon({
+    String name = 'Sturgeon',
+    double value = 10.0,   // Default value: $10.0
+    int experiencePoints = 15, // Default XP reward: 15
+  }) : super(name, value, experiencePoints);
+
+  @override
+  void swim() {
+    print('$name is swimming gracefully.');
+  }
+}
+
+mixin class Farmer {
+  int farmExperiencePoints = 0;
+  int cropsGrown = 0;
+
+  Future<String> growCrop(Crop crop) async {
+    print('Planting ${crop.name}...');
+    Crop grown = await Future.delayed(Duration(seconds: crop.growthTime), () {
+      print("This is inside the future delayed part.");
+      return crop;
+    });
+    print('${grown.name} has grown!');
+    cropsGrown++;
+    farmExperiencePoints += grown.experiencePoints;
+
+    print('Crops Grown: $cropsGrown');
+    print('Farm Experience Points: $farmExperiencePoints');
+
+    return 'You have successfully grown ${grown.name}!';
+  }
+}
+
+mixin class Fisher {
+  int fishCaught = 0;
+  int totalExperiencePoints = 0;
+
+  String catchFish(Fish fish) {
+    fishCaught++;
+    totalExperiencePoints += fish.experiencePoints;
+    print('You caught a ${fish.name} worth \$${fish.value}!');
+    print('You earned ${fish.experiencePoints} experience points.');
+
+    // Output the updated stats
+    print('Fish Caught: $fishCaught');
+    print('Total Experience Points: $totalExperiencePoints');
+
+    return 'You have successfully caught a ${fish.name}!';
+  }
+}
+
+class Player extends StardewValleyCharacter with Farmer, Fisher implements Swimmer {
+  Player(String name, int age) : super(name, age);
+
+  @override
+  void swim() {
+    print('$name is swimming gracefully.');
+  }
+
+  Future<String> farmWork(Crop crop) async {
+    return growCrop(crop);
+  }
+}
+
+void main() async {
   
+//   // Create character instances
+//   var character1 = StardewValleyCharacter('Alex', 28);
+//   var character2 = StardewValleyCharacter('Emily', 25);
+//   var character3 = StardewValleyCharacter('Sam', 20);
+//   var character4 = StardewValleyCharacter('Abigail', 22);
+
+//   // Introduce the characters
+//   character1.introduce();
+//   character2.introduce();
+//   character3.introduce();
+//   character4.introduce();
+  
+//   print(character1);
+  
+//   // Create crop instances with parameters in any order
+//   var crop1 = Crop(name: 'Carrot', value: 2.5, growthTime: 60 * 3);
+//   var crop2 = Crop(growthTime: 60 * 2, name: 'Tomato');
+//   var crop3 = Crop(experiencePoints: 5, name: 'Potato');
+
+//   // Print the crop information using the toString method
+//   print(crop1.toString());
+//   print(crop2.toString());
+//   print(crop3.toString());
+  
+//   // Create a Sturgeon instance
+//   var sturgeon = Sturgeon();
+
+//   // Print the sturgeon information and make it swim
+//   print(sturgeon.toString());
+//   sturgeon.swim();
+  
+//   // Create a Fisher instance
+//   var fisher = Fisher();
+
+//   // Create some fish instances
+//   var rainbowTrout = Fish('Rainbow Trout', 7.5, 12);
+
+//   // Fisher catches fish
+//   fisher.catchFish(rainbowTrout);
+//   fisher.catchFish(sturgeon);
+  
+//   // Create a Farmer instance
+//   var farmer = Farmer();
+
+//   // Create a crop instance (e.g., a strawberry)
+//   var strawberry = Strawberry();
+
+//   // Simulate growing a crop asynchronously
+//   var grownCrop = await farmer.growCrop(strawberry);
+
+//   print('Done growing ${grownCrop.name}!');
   
 //   String? nullableString = "Hello, Dart!"; // Nullable string
 //   String nonNullableString = "Hello, Dart!"; // Non-nullable string
@@ -106,5 +236,25 @@ void main() {
 //   int? x; // Nullable integer
 //   // int y = x; // This would result in a compilation error because x can be null.
 
+  // Create a Player instance
+  var player = Player('Alex', 20);
+
+  // Create some crop and fish instances
+  Strawberry strawberry = Strawberry();
+  Pumpkin pumpkin = Pumpkin();
+  Fish rainbowTrout = Fish('Rainbow Trout', 7.5, 12);
+
+  // Player performs farm work (growing crops)
+  //var farmWorkResult = await player.farmWork(strawberry);
+  var farmWorkResult = player.farmWork(strawberry);
+
+  farmWorkResult = player.farmWork(pumpkin);
+
+  // Player catches fish
+  var catchFishResult = player.catchFish(rainbowTrout);
+  print(catchFishResult);
+
+  // Player swims
+  player.swim();
   
 }
