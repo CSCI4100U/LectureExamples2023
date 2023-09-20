@@ -29,23 +29,16 @@ class _LogoGridState extends State<LogoGrid> {
   }
 
   Widget _buildLogo() {
-    return FlutterLogo(size: 60.0);
+    return FlutterLogo(size: 50.0);
   }
 
   List<Widget> _buildRow() {
     return List.generate(5, (index) => _buildLogo());
   }
 
-  List<Widget> _buildColumns() {
-    return List.generate(3, (index) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _buildRow(),
-      );
-    });
+  List<Widget> _buildColumn() {
+    return List.generate(3, (index) => Column(children: _buildRow()));
   }
-
-  //HW: Move the stack circle behind the logos!
 
   @override
   Widget build(BuildContext context) {
@@ -56,24 +49,7 @@ class _LogoGridState extends State<LogoGrid> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                CircleAvatar(
-                  child: Text("HIIIIIIII"),
-                  backgroundColor: Colors.amber,
-                ),
-                Column(
-                  children: _buildColumns(),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.0), // Added spacing
-            Text(
-              'Hi CSCI 4100!',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-          ],
+          children: _buildColumn(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
