@@ -1,0 +1,27 @@
+Container: Simple to use for basic layout and styling of its child widget.
+
+Padding: Adds padding around its child but is still relatively straightforward.
+
+Center: Centers its child, which is a basic layout operation.
+
+Align: Positions its child using alignment parameters, slightly more complex than Center.
+
+SizedBox: Provides a fixed width and height for its child, straightforward.
+
+Expanded: Used to distribute available space among children, introduces flexibility but is still conceptually clear.
+
+Wrap: Allows children to flow in multiple lines, introduces a flow layout concept.
+
+Card: Provides a basic material design card, fairly self-contained and not very complex.
+
+Flow: Offers fine-grained control over a flow layout, requires understanding of flow delegates.
+
+Positioned: Positions its child within a Stack, requiring knowledge of coordinates.
+
+AspectRatio: Enforces a specific aspect ratio for its child, relatively simple but may involve math for aspect ratio calculation.
+
+ListView.builder: Useful for handling long lists efficiently, introduces dynamic rendering and builder functions.
+
+GridView: Creates a grid layout, introduces grid-based arrangement and customization.
+
+CustomScrollView, SliverAppBar, SliverList: Introduces more complex scrolling behaviors and sliver-based layouts.
