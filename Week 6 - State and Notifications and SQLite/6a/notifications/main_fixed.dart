@@ -21,8 +21,7 @@ void main() async {
 
   runApp(MaterialApp(
     home: MyApp()
-  )
-  );
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -146,7 +145,7 @@ class _MyAppState extends State<MyApp> {
                       selectedTime.month,
                       selectedTime.day,
                       pickedTime.hour,
-                      pickedTime.minute, // Assuming notifications are scheduled for noon
+                      pickedTime.minute,
                     );
                     await _scheduleNotification(context, selectedDateTime);
                   }

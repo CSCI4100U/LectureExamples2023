@@ -14,15 +14,12 @@ void main() async {
   // IOSInitializationSettings();
   final InitializationSettings initializationSettings =
   InitializationSettings(
-    android: initializationSettingsAndroid,
+      android: initializationSettingsAndroid,
 //      iOS: initializationSettingsIOS
-  );
+      );
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-  runApp(MaterialApp(
-    home: MyApp()
-  )
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -45,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     // IOSInitializationSettings();
     final InitializationSettings initializationSettings =
     InitializationSettings(
-      android: initializationSettingsAndroid,
+        android: initializationSettingsAndroid,
 //        iOS: initializationSettingsIOS
     );
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
@@ -72,7 +69,7 @@ class _MyAppState extends State<MyApp> {
     // IOSNotificationDetails();
     const NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
-      //    iOS: iOSPlatformChannelSpecifics,
+  //    iOS: iOSPlatformChannelSpecifics,
     );
 
     final timeZone = tz.local;
@@ -96,7 +93,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Notification App'),
@@ -136,17 +134,13 @@ class _MyAppState extends State<MyApp> {
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2101),
                   );
-                  TimeOfDay? pickedTime = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  if (selectedTime != null && pickedTime != null) {
+                  if (selectedTime != null) {
                     final selectedDateTime = DateTime(
                       selectedTime.year,
                       selectedTime.month,
                       selectedTime.day,
-                      pickedTime.hour,
-                      pickedTime.minute, // Assuming notifications are scheduled for noon
+                      12,
+                      0, // Assuming notifications are scheduled for noon
                     );
                     await _scheduleNotification(context, selectedDateTime);
                   }
@@ -156,6 +150,7 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
+      ),
     );
   }
 }
